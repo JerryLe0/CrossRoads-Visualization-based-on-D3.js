@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>    
+    <head><!标题>
+        <title>Crossroads</title>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    </head>
+    <body><!主体>
+        <!可缩放矢量模型(画布)>
+        <svg width="1600" height="900" id="mainsvg" class="svgs" style='display: block; margin: 0 auto;'>
+            <g id='maingroup' transform='translate(800, 450)'></g>//主画布
+            <g id='East_rects' transform='translate(1040, 300)'></g>//东柱状图
+        </svg>
+        <script>
+            //信控
+            d3.select('#maingroup').append('circle')
+            .attr('cx', -30).attr('cy', 0).attr('r', '10').attr('fill', 'red');
+            d3.select('#maingroup').append('circle')
+            .attr('cx', 0).attr('cy', 0).attr('r', '10').attr('fill', 'yellow');
+            d3.select('#maingroup').append('circle')
+            .attr('cx', 30).attr('cy', 0).attr('r', '10').attr('fill', 'green');
+            d3.select('#maingroup').append('line')
+            .attr('x1', -30).attr('y1', 15).attr('x2', 30).attr('y2', 15).attr("stroke", "black").attr("stroke-width", "2px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -30).attr('y1', -15).attr('x2', 30).attr('y2', -15).attr("stroke", "black").attr("stroke-width", "2px");
+            var arc_0 = d3.arc()
+			    .innerRadius(14)
+			    .outerRadius(16)
+			    .startAngle(0)
+			    .endAngle(Math.PI);
+            d3.select("#maingroup").append("path")
+            .attr("d", arc_0)
+            .attr("transform", "translate(30,0)");
+            var arc_1 = d3.arc()
+			    .innerRadius(14)
+			    .outerRadius(16)
+			    .startAngle(0)
+			    .endAngle(-Math.PI);
+            d3.select("#maingroup").append("path")
+            .attr("d", arc_1)
+            .attr("transform", "translate(-30,0)");
+
+
+            //东北角
+            d3.select('#maingroup').append('line')
+            .attr('x1', 150).attr('y1', -240).attr('x2', 150).attr('y2', -450).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 100).attr('y1', -240).attr('x2', 100).attr('y2', -450).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+            d3.select('#maingroup').append('line')
+            .attr('x1', 50).attr('y1', -240).attr('x2', 50).attr('y2', -450).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', -150).attr('x2', 450).attr('y2', -150).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', -100).attr('x2', 450).attr('y2', -100).attr("stroke", "black").attr("stroke-width", "1.5px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', -50).attr('x2', 450).attr('y2', -50).attr("stroke", "black").attr("stroke-width", "1.5px");
+            
+            var arc1 = d3.arc()
+			    .innerRadius(87)
+			    .outerRadius(93)
+			    .startAngle(Math.PI)
+			    .endAngle(Math.PI/2*3);
+            d3.select("#maingroup").append("path")
+            .attr("d", arc1)
+            .attr("transform", "translate(240,-240)");
+
+            //西北角
+            d3.select('#maingroup').append('line')
+            .attr('x1', -150).attr('y1', -240).attr('x2', -150).attr('y2', -450).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -100).attr('y1', -240).attr('x2', -100).attr('y2', -450).attr("stroke", "black").attr("stroke-width", "1.5px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -50).attr('y1', -240).attr('x2', -50).attr('y2', -450).attr("stroke", "black").attr("stroke-width", "1.5px");
+
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', -150).attr('x2', -450).attr('y2', -150).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', -100).attr('x2', -450).attr('y2', -100).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', -50).attr('x2', -450).attr('y2', -50).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+
+            var arc2 = d3.arc()
+			    .innerRadius(87)
+			    .outerRadius(93)
+			    .startAngle(Math.PI/2)
+			    .endAngle(Math.PI);
+            d3.select("#maingroup").append("path")
+            .attr("d", arc2)
+            .attr("transform", "translate(-240,-240)");
+
+            //西南角
+            d3.select('#maingroup').append('line')
+            .attr('x1', -150).attr('y1', 240).attr('x2', -150).attr('y2', 450).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -100).attr('y1', 240).attr('x2', -100).attr('y2', 450).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+            d3.select('#maingroup').append('line')
+            .attr('x1', -50).attr('y1', 240).attr('x2', -50).attr('y2', 450).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', 150).attr('x2', -450).attr('y2', 150).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', 100).attr('x2', -450).attr('y2', 100).attr("stroke", "black").attr("stroke-width", "1.5px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', 50).attr('x2', -450).attr('y2', 50).attr("stroke", "black").attr("stroke-width", "1.5px");
+            var arc3 = d3.arc()
+			    .innerRadius(87)
+			    .outerRadius(93)
+			    .startAngle(0)
+			    .endAngle(Math.PI/2);
+            d3.select("#maingroup").append("path")
+            .attr("d", arc3)
+            .attr("transform", "translate(-240,240)");
+
+            //东南角
+            d3.select('#maingroup').append('line')
+            .attr('x1', 150).attr('y1', 240).attr('x2', 150).attr('y2', 450).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 100).attr('y1', 240).attr('x2', 100).attr('y2', 450).attr("stroke", "black").attr("stroke-width", "1.5px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 50).attr('y1', 240).attr('x2', 50).attr('y2', 450).attr("stroke", "black").attr("stroke-width", "1.5px");
+
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', 150).attr('x2', 450).attr('y2', 150).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', 100).attr('x2', 450).attr('y2', 100).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', 50).attr('x2', 450).attr('y2', 50).attr("stroke", "black").attr("stroke-width", "1.5px").attr("stroke-dasharray", "30, 30");//车道线
+
+            var arc4 = d3.arc()
+			    .innerRadius(87)
+			    .outerRadius(93)
+			    .startAngle(-Math.PI/2)
+			    .endAngle(0);
+            d3.select("#maingroup").append("path")
+            .attr("d", arc4)
+            .attr("transform", "translate(240,240)");
+            //人行横道线
+            //东
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -135).attr('x2', 230).attr('y2', -135).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -120).attr('x2', 230).attr('y2', -120).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -105).attr('x2', 230).attr('y2', -105).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -90).attr('x2', 230).attr('y2', -90).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -75).attr('x2', 230).attr('y2', -75).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -60).attr('x2', 230).attr('y2', -60).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -45).attr('x2', 230).attr('y2', -45).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -30).attr('x2', 230).attr('y2', -30).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', -15).attr('x2', 230).attr('y2', -15).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 0).attr('x2', 230).attr('y2', 0).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 135).attr('x2', 230).attr('y2', 135).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 120).attr('x2', 230).attr('y2', 120).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 105).attr('x2', 230).attr('y2', 105).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 90).attr('x2', 230).attr('y2', 90).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 75).attr('x2', 230).attr('y2', 75).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 60).attr('x2', 230).attr('y2', 60).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 45).attr('x2', 230).attr('y2', 45).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 30).attr('x2', 230).attr('y2', 30).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 180).attr('y1', 15).attr('x2', 230).attr('y2', 15).attr("stroke", "black").attr("stroke-width", "6px");
+
+            //西
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -135).attr('x2', -230).attr('y2', -135).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -120).attr('x2', -230).attr('y2', -120).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -105).attr('x2', -230).attr('y2', -105).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -90).attr('x2', -230).attr('y2', -90).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -75).attr('x2', -230).attr('y2', -75).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -60).attr('x2', -230).attr('y2', -60).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -45).attr('x2', -230).attr('y2', -45).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -30).attr('x2', -230).attr('y2', -30).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', -15).attr('x2', -230).attr('y2', -15).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 0).attr('x2', -230).attr('y2', 0).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 135).attr('x2', -230).attr('y2', 135).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 120).attr('x2', -230).attr('y2', 120).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 105).attr('x2', -230).attr('y2', 105).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 90).attr('x2', -230).attr('y2', 90).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 75).attr('x2', -230).attr('y2', 75).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 60).attr('x2', -230).attr('y2', 60).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 45).attr('x2', -230).attr('y2', 45).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 30).attr('x2', -230).attr('y2', 30).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -180).attr('y1', 15).attr('x2', -230).attr('y2', 15).attr("stroke", "black").attr("stroke-width", "6px");
+
+            //南
+            d3.select('#maingroup').append('line')
+            .attr('x1', -135).attr('y1', 180).attr('x2', -135).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -120).attr('y1', 180).attr('x2', -120).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -105).attr('y1', 180).attr('x2', -105).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -90).attr('y1', 180).attr('x2', -90).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -75).attr('y1', 180).attr('x2', -75).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -60).attr('y1', 180).attr('x2', -60).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -45).attr('y1', 180).attr('x2', -45).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -30).attr('y1', 180).attr('x2', -30).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -15).attr('y1', 180).attr('x2', -15).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 0).attr('y1', 180).attr('x2', 0).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 135).attr('y1', 180).attr('x2', 135).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 120).attr('y1', 180).attr('x2', 120).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 105).attr('y1', 180).attr('x2', 105).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 90).attr('y1', 180).attr('x2', 90).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 75).attr('y1', 180).attr('x2', 75).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 60).attr('y1', 180).attr('x2', 60).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 45).attr('y1', 180).attr('x2', 45).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 30).attr('y1', 180).attr('x2', 30).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 15).attr('y1', 180).attr('x2', 15).attr('y2', 230).attr("stroke", "black").attr("stroke-width", "6px");
+
+            //北
+            d3.select('#maingroup').append('line')
+            .attr('x1', -135).attr('y1', -180).attr('x2', -135).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -120).attr('y1', -180).attr('x2', -120).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -105).attr('y1', -180).attr('x2', -105).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -90).attr('y1', -180).attr('x2', -90).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -75).attr('y1', -180).attr('x2', -75).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -60).attr('y1', -180).attr('x2', -60).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -45).attr('y1', -180).attr('x2', -45).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -30).attr('y1', -180).attr('x2', -30).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -15).attr('y1', -180).attr('x2', -15).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 0).attr('y1', -180).attr('x2', 0).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 135).attr('y1', -180).attr('x2', 135).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 120).attr('y1', -180).attr('x2', 120).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 105).attr('y1', -180).attr('x2', 105).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 90).attr('y1', -180).attr('x2', 90).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 75).attr('y1', -180).attr('x2', 75).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 60).attr('y1', -180).attr('x2', 60).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 45).attr('y1', -180).attr('x2', 45).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 30).attr('y1', -180).attr('x2', 30).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 15).attr('y1', -180).attr('x2', 15).attr('y2', -230).attr("stroke", "black").attr("stroke-width", "6px");
+
+            //双实线
+            //东
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', 3).attr('x2', 450).attr('y2', 3).attr("stroke", "orange").attr("stroke-width", "3px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', 240).attr('y1', -3).attr('x2', 450).attr('y2', -3).attr("stroke", "orange").attr("stroke-width", "3px");
+            //北
+            d3.select('#maingroup').append('line')
+            .attr('x1', 3).attr('y1', -240).attr('x2', 3).attr('y2', -450).attr("stroke", "orange").attr("stroke-width", "3px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -3).attr('y1', -240).attr('x2', -3).attr('y2', -450).attr("stroke", "orange").attr("stroke-width", "3px");
+            //西
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', 3).attr('x2', -450).attr('y2', 3).attr("stroke", "orange").attr("stroke-width", "3px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -240).attr('y1', -3).attr('x2', -450).attr('y2', -3).attr("stroke", "orange").attr("stroke-width", "3px");
+            //南
+            d3.select('#maingroup').append('line')
+            .attr('x1', 3).attr('y1', 240).attr('x2', 3).attr('y2', 450).attr("stroke", "orange").attr("stroke-width", "3px");
+            d3.select('#maingroup').append('line')
+            .attr('x1', -3).attr('y1', 240).attr('x2', -3).attr('y2', 450).attr("stroke", "orange").attr("stroke-width", "3px");
+
+            //各排队车辆数变化
+            //d3.select("#E_L").transition().duration(2000).attr("width", "40"); 
+            const data = [{name: 'L', value:8}, {name:'S', value:24}, {name:'R', value:3}]; //数据
+            const svg = d3.select('#East_rects');
+            const width = 100;
+            const height = 150;
+            const margin = {top: 0, right: 0, bottom: 0, left: 0};
+            const innerWidth = width - margin.left - margin.right;
+            const innerHeight = height - margin.top - margin.bottom;
+
+            const xScale = d3.scaleLinear()
+            .domain([0, 24])
+            .range([0, innerWidth]);
+
+            const yScale = d3.scaleBand()
+            .domain( data.map(d => d.name) )
+            .range([0, innerHeight])
+            .padding(0.1);
+
+            const g = svg.append('g').attr('id', 'East_rects')
+            .attr('transform', `translate(${margin.left}, ${margin.top})`);
+        
+            const rects = g.selectAll('rect').data(data).join('rect')
+            .attr('fill', 'green').attr('opacity', 0.8)
+            .attr('y', d => yScale(d.name)).attr('height', yScale.bandwidth());
+
+            const texts = g.selectAll('.datatext').data(data).join('text')
+            .attr('class', 'datatext').text(d => d.value)
+            .attr('y', d => yScale(d.name) + 6 + yScale.bandwidth() / 2)
+
+            var formatPercent = d3.format("d"); //保留整数
+
+            //随机数据
+            (async () => {
+                while(true){
+                    data.forEach(d => {
+                        d.value = Math.floor(Math.random() *30);
+                    });
+                    let transition = d3.transition().duration(1200)//.ease(d3.easeElastic);
+
+                    rects.transition(transition) 
+                    .attr('width', d => xScale(d.value))
+                    .attr('fill', () => d3.interpolateRainbow(Math.random()/4));
+
+                    texts.transition(transition)
+                    .attr('x', d => xScale(d.value))
+                    .text(d => formatPercent(d.value));
+                    
+                    await transition.end();
+                }
+            })()
+        </script>
+    </body>
+</html>
