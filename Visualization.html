@@ -2,14 +2,20 @@
 <html>    
     <head><!标题>
         <title>Crossroads</title>
-        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <!script src="d3.min.js"><!/script><!JavaScript脚本（链接到D3）>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
 
     </head>
     <body><!主体>
         <!可缩放矢量模型(画布)>
-        <svg width="1600" height="900" id="mainsvg" class="svgs" style='display: block; margin: 0 auto;'>
+        <svg width="1600" height="900" id="mainsvg" class="svgs" color="green" style='display: block; margin: 0 auto;'>
             <g id='maingroup' transform='translate(800, 450)'></g>//主画布
             <g id='East_rects' transform='translate(1040, 300)'></g>//东柱状图
+            <g id='West_rects' transform='translate(560, 600), rotate(180)'></g>
+            <g id='South_rects' transform='translate(800, 690)'></g>//南柱状图
+            <g id='North_rects' transform='translate(650, 210), rotate(-90)'></g>
+            
+
         </svg>
         <script>
             //信控
@@ -320,55 +326,144 @@
 
             //各排队车辆数变化
             //d3.select("#E_L").transition().duration(2000).attr("width", "40"); 
+            //东进口
             const data = [{name: 'L', value:8}, {name:'S', value:24}, {name:'R', value:3}]; //数据
             const svg = d3.select('#East_rects');
-            const width = 100;
+            const width = 150;
             const height = 150;
-            const margin = {top: 0, right: 0, bottom: 0, left: 0};
-            const innerWidth = width - margin.left - margin.right;
-            const innerHeight = height - margin.top - margin.bottom;
 
             const xScale = d3.scaleLinear()
-            .domain([0, 24])
-            .range([0, innerWidth]);
+            .domain([0, 16])
+            .range([0, width]);
 
             const yScale = d3.scaleBand()
-            .domain( data.map(d => d.name) )
-            .range([0, innerHeight])
+            .domain(data.map(d => d.name))
+            .range([0, height])
             .padding(0.1);
 
             const g = svg.append('g').attr('id', 'East_rects')
-            .attr('transform', `translate(${margin.left}, ${margin.top})`);
         
+            // This selects all the 'rect' elements in the 'g' element with id 'East_rects' and binds the data 'data' to them. If there are no 'rect' elements, it creates them. 
             const rects = g.selectAll('rect').data(data).join('rect')
             .attr('fill', 'green').attr('opacity', 0.8)
             .attr('y', d => yScale(d.name)).attr('height', yScale.bandwidth());
 
-            const texts = g.selectAll('.datatext').data(data).join('text')
-            .attr('class', 'datatext').text(d => d.value)
-            .attr('y', d => yScale(d.name) + 6 + yScale.bandwidth() / 2)
+            //const texts = g.selectAll('.datatext').data(data).join('text')
+            //.attr('class', 'datatext').text(d => d.value)
+            //.attr('y', d => yScale(d.name) + 6 + yScale.bandwidth() / 2)
+
+            //西进口
+            const data_W = [{name: 'L', value:8}, {name:'S', value:24}, {name:'R', value:3}]; //数据
+            const svg_W = d3.select('#West_rects');
+            const width_W = 150;
+            const height_W = 150;
+            const xScale_W = d3.scaleLinear()
+            .domain([0, 16])
+            .range([0, width_W]);
+
+            const yScale_W = d3.scaleBand()
+            .domain(data_W.map(d => d.name))
+            .range([0, height_W])
+            .padding(0.1);
+
+            const g_W = svg_W.append('g').attr('id', 'West_rects')
+        
+            // This selects all the 'rect' elements in the 'g' element with id 'East_rects' and binds the data 'data' to them. If there are no 'rect' elements, it creates them. 
+            const rects_W = g_W.selectAll('rect').data(data_W).join('rect')
+            .attr('fill', 'green').attr('opacity', 0.8)
+            .attr('y', d => yScale_W(d.name)).attr('height', yScale_W.bandwidth());
+            
+            //南进口
+            const data_S = [{name:'L', value:8}, 
+                            {name:'S', value:12}, 
+                            {name:'R', value:4}]; //数据
+            const svg_S = d3.select('#South_rects');
+            const width_S = 150;
+            const height_S = 150;
+
+            const xScale_S = d3.scaleBand()
+            .domain(data_S.map(d => d.name))
+            .range([0, width_S]).padding(0.1);
+
+            const yScale_S = d3.scaleLinear()
+            .domain([0, 16]).range([0, height_S]);
+          
+            const g_S = svg_S.append('g').attr('id', 'South_rects');
+            
+            const rects_S = g_S.selectAll('rect').data(data_S).join('rect')
+            .attr('fill', 'green').attr('opacity', 0.8)
+            .attr('x', d => xScale_S(d.name)).attr('width', xScale_S.bandwidth());
+          
+            //北进口
+            const data_N = [{name: 'L', value:8}, {name:'S', value:24}, {name:'R', value:3}]; //数据
+            const svg_N = d3.select('#North_rects');
+            const width_N = 150;
+            const height_N = 150;
+            const xScale_N = d3.scaleLinear()
+            .domain([0, 16])
+            .range([0, width_N]);
+
+            const yScale_N = d3.scaleBand()
+            .domain(data_N.map(d => d.name))
+            .range([0, height_N])
+            .padding(0.1);
+
+            const g_N = svg_N.append('g').attr('id', 'North_rects')
+        
+            // This selects all the 'rect' elements in the 'g' element with id 'East_rects' and binds the data 'data' to them. If there are no 'rect' elements, it creates them. 
+            const rects_N = g_N.selectAll('rect').data(data_N).join('rect')
+            .attr('fill', 'green').attr('opacity', 0.8)
+            .attr('y', d => yScale_N(d.name)).attr('height', yScale_N.bandwidth());
+
 
             var formatPercent = d3.format("d"); //保留整数
-
-            //随机数据
+            
+            //同步动画
             (async () => {
-                while(true){
-                    data.forEach(d => {
-                        d.value = Math.floor(Math.random() *30);
+            while(true){
+                let transition = d3.transition().duration(1200);
+                data.forEach(d => {
+                        d.value = Math.floor(Math.random()*20);
                     });
-                    let transition = d3.transition().duration(1200)//.ease(d3.easeElastic);
-
+                    
                     rects.transition(transition) 
                     .attr('width', d => xScale(d.value))
                     .attr('fill', () => d3.interpolateRainbow(Math.random()/4));
 
-                    texts.transition(transition)
-                    .attr('x', d => xScale(d.value))
-                    .text(d => formatPercent(d.value));
+                    //texts.transition(transition)
+                    //.attr('x', d => xScale(d.value))
+                    //.text(d => formatPercent(d.value));
+                
+                data_S.forEach(d => {
+                        d.value = Math.floor(Math.random()*20);
+                    });
+
+                    rects_S.transition(transition)
+                    .attr('height', d => yScale_S(d.value))
+                    .attr('fill', () => d3.interpolateRainbow(Math.random()/4));
+               
+                data_N.forEach(d => {
+                        d.value = Math.floor(Math.random()*20);
+                    });
+                   
+                    rects_N.transition(transition) 
+                    .attr('width', d => xScale_N(d.value))
+                    .attr('fill', () => d3.interpolateRainbow(Math.random()/4));
                     
-                    await transition.end();
+                data_W.forEach(d => {
+                        d.value = Math.floor(Math.random()*20);
+                    });
+                   
+                    rects_W.transition(transition) 
+                    .attr('width', d => xScale_W(d.value))
+                    .attr('fill', () => d3.interpolateRainbow(Math.random()/4));
+
+                await transition.end();
                 }
             })()
+            
+
+
         </script>
     </body>
 </html>
